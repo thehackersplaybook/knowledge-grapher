@@ -1,2 +1,3 @@
-# knowledge-grapher
-TypeScript Library to generate JSON-based knowledge graphs. 🕸️ 
+# Knowledge Grapher 🕸️ 
+
+TypeScript Library to generate JSON-based knowledge graphs. 
