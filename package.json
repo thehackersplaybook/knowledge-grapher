@@ -1,0 +1,24 @@
+{
+  "name": "knowledge-grapher",
+  "version": "1.0.0",
+  "description": "> 🚦 This project is currently in an experimental stage and is not production-ready.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js",
+    "test": "vitest --silent",
+    "watch": "tsc --watch",
+    "nodemon:watch": "nodemon --watch dist dist/index.js",
+    "dev": "concurrently \"npm run watch\" \"npm run nodemon:watch\"",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitest/coverage-v8": "^2.1.8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
