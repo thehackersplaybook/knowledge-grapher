@@ -6,11 +6,11 @@
   "scripts": {
     "build": "tsc",
     "start": "npm run build && node dist/index.js",
-    "test": "vitest --silent",
+    "test": "vitest --silent --testTimeout 60000",
     "watch": "tsc --watch",
     "nodemon:watch": "nodemon --watch dist dist/index.js",
     "dev": "concurrently \"npm run watch\" \"npm run nodemon:watch\"",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage --testTimeout 60000"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,15 @@
     "@vitest/coverage-v8": "^2.1.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "vitest-mock-extended": "^2.0.2"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^1.0.5",
+    "@ai-sdk/openai": "^1.0.10",
+    "@mendable/firecrawl-js": "^1.9.7",
+    "ai": "^4.0.21",
+    "dotenv": "^16.4.7",
+    "zod": "^3.24.1"
   }
 }
