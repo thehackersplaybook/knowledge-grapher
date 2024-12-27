@@ -1,3 +1,5 @@
+import { anthropic } from "@ai-sdk/anthropic";
+import { openai } from "@ai-sdk/openai";
 import { LanguageModel, generateText, generateObject } from "ai";
 import { Schema } from "zod";
 
@@ -23,6 +25,10 @@ interface AiClient {
   generateText: (options: GenerateTextOptions) => Promise<string>;
 }
 
+interface AiClientTools {
+  getModelLib: (modelName: string) => LanguageModel;
+}
+
 export class AIClientFactory {
   getClient({ model }: GetClientOptions): AiClient {
     return {
@@ -30,6 +36,12 @@ export class AIClientFactory {
         this.customGenerateObject(model, options),
       generateText: (options: GenerateTextOptions) =>
         this.customGenerateText(model, options),
+    };
+  }
+
+  getClientTools(): AiClientTools {
+    return {
+      getModelLib: (modelName: string) => this.getModelLib(modelName),
     };
   }
 
@@ -47,4 +59,15 @@ export class AIClientFactory {
     options: GenerateTextOptions
   ): Promise<string> =>
     generateText({ model, ...options }).then((response) => response.text);
+
+  private getModelLib(modelName: string): LanguageModel {
+    const [provider, model] = modelName.split(":");
+    if (provider === "openai") {
+      return openai(model);
+    } else if (provider === "anthropic") {
+      return anthropic(model);
+    }
+
+    throw new Error(`Unsupported model provider: ${provider}`);
+  }
 }

@@ -40,4 +40,30 @@ describe("AIClientFactory", () => {
 
     expect(result).toBeDefined();
   });
+
+  it("should return the client tools", () => {
+    const factory = new AIClientFactory();
+    const tools = factory.getClientTools();
+    expect(tools.getModelLib).toBeDefined();
+  });
+
+  it("should return the correct model library for openai", () => {
+    const factory = new AIClientFactory();
+    const tools = factory.getClientTools();
+    expect(tools.getModelLib("openai:gpt-4o")).toBeDefined();
+  });
+
+  it("should return the correct model library for anthropic", () => {
+    const factory = new AIClientFactory();
+    const tools = factory.getClientTools();
+    expect(tools.getModelLib("anthropic:claude-3-5-sonnet")).toBeDefined();
+  });
+
+  it("should throw an error if the model provider is not supported", () => {
+    const factory = new AIClientFactory();
+    const tools = factory.getClientTools();
+    expect(() => tools.getModelLib("unsupported:model")).toThrow(
+      "Unsupported model provider: unsupported"
+    );
+  });
 });
