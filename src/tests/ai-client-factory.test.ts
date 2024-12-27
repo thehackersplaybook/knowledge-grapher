@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { AIClientFactory } from "./ai-client-factory";
+import { AIClientFactory } from "../ai-client-factory";
 import { openai } from "@ai-sdk/openai";
 import z from "zod";
 
