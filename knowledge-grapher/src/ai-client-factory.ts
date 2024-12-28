@@ -3,29 +3,29 @@ import { openai } from "@ai-sdk/openai";
 import { LanguageModel, generateText, generateObject } from "ai";
 import { Schema } from "zod";
 
-interface GenerateBaseOptions {
+export interface GenerateBaseOptions {
   system: string;
   prompt: string;
 }
 
-interface GenerateObjectOptions extends GenerateBaseOptions {
+export interface GenerateObjectOptions extends GenerateBaseOptions {
   schema: Schema;
 }
 
-interface GenerateTextOptions extends GenerateBaseOptions {}
+export interface GenerateTextOptions extends GenerateBaseOptions {}
 
-interface GetClientOptions {
+export interface GetClientOptions {
   model: LanguageModel;
 }
 
-interface AiClient {
+export interface AiClient {
   generateObject: (
     options: GenerateObjectOptions
   ) => Promise<Record<string, any>>;
   generateText: (options: GenerateTextOptions) => Promise<string>;
 }
 
-interface AiClientTools {
+export interface AiClientTools {
   getModelLib: (modelName: string) => LanguageModel;
 }
 

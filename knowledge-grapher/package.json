@@ -2,7 +2,11 @@
   "name": "knowledge-grapher",
   "version": "1.0.0",
   "description": "> 🚦 This project is currently in an experimental stage and is not production-ready.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "bin": {
+    "knowledge-grapher": "./dist/bin.js"
+  },
   "scripts": {
     "build": "tsc",
     "start": "npm run build && node dist/index.js",

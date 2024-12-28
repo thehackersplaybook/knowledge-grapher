@@ -1,6 +1,10 @@
 import { AiClient, AIClientFactory } from "./ai-client-factory";
 import z from "zod";
 import { BlogIngestor } from "./blog-ingestor";
+import { ScraperService } from "./scraper-service";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export interface GenerateKnowledgeGraphOptions {
   url: string;
@@ -25,12 +29,24 @@ export class KnowledgeGrapher {
     private readonly blogIngestor: BlogIngestor
   ) {}
 
+  static getInstance(): KnowledgeGrapher {
+    const aiClientFactory = new AIClientFactory();
+    const scraperService = new ScraperService(
+      process.env.FIRECRAWL_API_KEY ?? ""
+    );
+    const blogIngestor = new BlogIngestor(scraperService);
+    return new KnowledgeGrapher(aiClientFactory, blogIngestor);
+  }
+
   async generateKnowledgeGraph(
     options: GenerateKnowledgeGraphOptions
   ): Promise<GenerateKnowledgeGraphResult> {
     const aiClient = this.getAIClient(options.model);
     const { url } = options;
-    const pageContent = await this.getBlogContent(url).catch((err) => null);
+    const pageContent = await this.getBlogContent(url).catch((err) => {
+      console.error("Error ingesting blog", err);
+      return null;
+    });
 
     if (!pageContent) {
       return {
