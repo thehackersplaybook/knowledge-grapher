@@ -1,0 +1,25 @@
+{
+  "name": "examples",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js",
+    "test": "vitest --silent --testTimeout 60000",
+    "watch": "tsc --watch",
+    "nodemon:watch": "nodemon --watch dist dist/index.js",
+    "dev": "concurrently \"npm run watch\" \"npm run nodemon:watch\"",
+    "test:coverage": "vitest run --coverage --testTimeout 60000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "knowledge-grapher": "file:../knowledge-grapher",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
